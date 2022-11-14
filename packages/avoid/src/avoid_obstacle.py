@@ -28,8 +28,4 @@ def avoid_obstacle_static():
         rate.sleep()
 
 if __name__ == '__main__':
-    try:
-        avoid_obstacle_static()
-        dtu.wrap_script_entry_point(avoid_obstacle_static)
-    except rospy.ROSInterruptException:
-        pass
+    dtu.wrap_script_entry_point(avoid_obstacle_static)
