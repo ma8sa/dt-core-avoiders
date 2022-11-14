@@ -1,0 +1,8 @@
+<launch>
+	<arg name="veh"/>
+	<arg name="bagin"/>
+
+    <!-- play one bag -->
+    <node pkg="rosbag" type="play" name="player" args="$(arg bagin) -l"/>
+
+</launch>
