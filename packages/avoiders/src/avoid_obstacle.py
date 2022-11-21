@@ -53,7 +53,7 @@ class Avoider(DTROS):
         self.callback(0,0)
 
 
-        def callback(self,obstacles,lane):
+    def callback(self,obstacles,lane):
 
             ''' do planning stuff here '''
             path = self.path_plan(obstacles,lane)
@@ -76,7 +76,7 @@ class Avoider(DTROS):
                 rospy.loginfo(hello_str)
             
 
-        def path_plan(self,obstacle,lane):
+    def path_plan(self,obstacle,lane):
             return 0
 
     
