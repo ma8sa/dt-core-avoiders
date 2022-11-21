@@ -64,7 +64,8 @@ class Avoider(DTROS):
             ''' in a loop, while follow that by publishing motor state '''
             while(1):
                 car_control_msg = Twist2DStamped()
-                car_control_msg.header = rospy.Time.now()
+                car_control_msg.header.stamp = rospy.Time.now()
+                car_control_msg.header.seq = 0
 
         # Add commands to car message
                 car_control_msg.v = 2.0
