@@ -24,6 +24,7 @@ LP removing for now
 -->
 	    <!-- Lane Following stack -->
 	    <arg name="lane_following" value="true"/>
+	    <arg name="avoiders" value="true"/>
 	    <arg name="/lane_following/line_detection" value="true"/>
 	    <arg name="line_detector_param_file_name" value="default" />
 	    <arg name="/lane_following/ground_projection" value="true"/>

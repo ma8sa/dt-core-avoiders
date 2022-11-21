@@ -31,6 +31,7 @@
     <arg name="visualization" default="false" />
 
     <arg name="lane_following" default="false"/>
+    <arg name="avoiders" default="false"/>
     <arg name="/lane_following/line_detection" default="false"/>
     <arg name="/lane_following/ground_projection" default="false"/>
     <arg name="/lane_following/lane_filter" default="false"/>
@@ -75,6 +76,11 @@
     <arg name="maintenance_control" default="false"/>
     <!-- end switch args -->
 
+    <!--- Avoiders -->
+    <group if="($arg avoiders)">
+
+	    <include file="$(find avoiders)/launch/avoiders.launch"/>
+    </group>
 
     <!-- Image Decoding -->
     <group if="$(arg /camera/raw)">
