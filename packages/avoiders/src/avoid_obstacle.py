@@ -27,20 +27,14 @@ class Avoider(DTROS):
         ''' put all the init stuff like states, lane coef , planned path status vairable here '''
         self.stuff = 0
 
-        hello_str = "hello world 1" 
-        rospy.loginfo(hello_str)
         super(Avoider, self).__init__(node_name="lane_controller_node", node_type=NodeType.PERCEPTION)
 
         #rospy.init_node("avoider")
 
-        hello_str = "hello world 2%s" % rospy.get_time()
-        rospy.loginfo(hello_str)
 
         self.pub_motor = rospy.Publisher(
             "~car_cmd", Twist2DStamped, queue_size=1, dt_topic_type=TopicType.CONTROL
         )
-        hello_str = "hello world 3%s" % rospy.get_time()
-        rospy.loginfo(hello_str)
         #self.pub_motor = rospy.Publisher() # define the publisher here, in avoider node case it will the motor control and status message
         #self.pub_status = rospy.Publisher() # define the publisher here, in avoider node case it will the motor control and status message
 
@@ -73,8 +67,6 @@ class Avoider(DTROS):
             #self.pub_motor.pub()
                 self.pub_motor.publish(car_control_msg)
 
-                hello_str = "hello world 6%s" % rospy.get_time()
-                rospy.loginfo(hello_str)
             
 
     def path_plan(self,obstacle,lane):
