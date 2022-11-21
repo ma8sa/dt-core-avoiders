@@ -8,9 +8,66 @@ import duckietown_code_utils as dtu
 import rospy
 from std_msgs.msg import String
 
+from duckietown_msgs.msg import (
+    Twist2DStamped,
+    LanePose,
+    WheelsCmdStamped,
+    BoolStamped,
+    FSMState,
+    StopLineReading,
+)
 #!/usr/bin/env python
 # license removed for brevity
 
+
+class Avoider():
+
+    def __init__(self):
+        ''' put all the init stuff like states, lane coef , planned path status vairable here '''
+        self.stuff = 0
+
+        rospy.init_node("avoider")
+
+        self.pub_car_cmd = rospy.Publisher(
+            "car_cmd", Twist2DStamped, queue_size=1, dt_topic_type=TopicType.CONTROL
+        )
+        self.pub_motor = rospy.Publisher() # define the publisher here, in avoider node case it will the motor control and status message
+        self.pub_status = rospy.Publisher() # define the publisher here, in avoider node case it will the motor control and status message
+
+        obstacle_sub = message_filters.Subscriber('image', Image)
+        lane_sub = message_filters.Subscriber('camera_info', CameraInfo)
+    
+        ts = message_filters.TimeSynchronizer([image_sub, info_sub], 10)
+        ts.registerCallback(self.callback)
+        rospy.spin()
+
+        def callback(self,obstacles,lane):
+
+            ''' do planning stuff here '''
+            path = self.path_plan(obstacles,lane)
+
+            rospy.loginfo( " in the node printing yeaaaah")
+
+
+            ''' in a loop, while follow that by publishing motor state '''
+
+            car_control_msg = Twist2DStamped()
+            car_control_msg.header = rospy.Time.now()
+
+        # Add commands to car message
+            car_control_msg.v = 2.0
+            car_control_msg.omega = 0
+            #self.pub_motor.pub()
+            self.pub_motor.publish(car_cmd_msg)
+
+        def path_plan(self,obstacle,lane):
+            return 0
+
+    
+
+
+
+        
 
 def avoid_obstacle_static():
 
@@ -28,4 +85,7 @@ def avoid_obstacle_static():
         rate.sleep()
 
 if __name__ == '__main__':
-    dtu.wrap_script_entry_point(avoid_obstacle_static)
+    A = Avoider()
+    obs_msg = None
+    lane_msg = None
+    dtu.wrap_script_entry_point(A.callback(obs_msg,lane_msg))
