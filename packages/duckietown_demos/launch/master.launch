@@ -78,8 +78,9 @@
 
     <!--- Avoiders -->
     <group if="$(arg avoiders)">
-	    <include file="$(find avoiders)/launch/avoiders.launch"/>
-            <arg name="veh" value="$(arg veh)"/>
+	    <include file="$(find avoiders)/launch/avoiders.launch">
+		    <arg name="veh" value="$(arg veh)"/>
+	    </include>
     </group>
 
     <!-- Image Decoding -->
