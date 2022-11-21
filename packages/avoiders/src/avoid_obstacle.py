@@ -35,12 +35,14 @@ class Avoider(DTROS):
         #self.pub_motor = rospy.Publisher() # define the publisher here, in avoider node case it will the motor control and status message
         #self.pub_status = rospy.Publisher() # define the publisher here, in avoider node case it will the motor control and status message
 
-        obstacle_sub = message_filters.Subscriber('image', Image)
-        lane_sub = message_filters.Subscriber('camera_info', CameraInfo)
+        #obstacle_sub = message_filters.Subscriber('image', Image)
+        #lane_sub = message_filters.Subscriber('camera_info', CameraInfo)
     
-        ts = message_filters.TimeSynchronizer([image_sub, info_sub], 10)
-        ts.registerCallback(self.callback)
-        rospy.spin()
+        #ts = message_filters.TimeSynchronizer([image_sub, info_sub], 10)
+        #ts.registerCallback(self.callback)
+
+        self.callback(0,0)
+
 
         def callback(self,obstacles,lane):
 
@@ -87,6 +89,7 @@ def avoid_obstacle_static():
 
 if __name__ == '__main__':
     A = Avoider()
-    obs_msg = None
-    lane_msg = None
-    dtu.wrap_script_entry_point(A.callback(obs_msg,lane_msg))
+    rospy.spin()
+    #obs_msg = None
+    #lane_msg = None
+    #dtu.wrap_script_entry_point(A.callback(obs_msg,lane_msg))
