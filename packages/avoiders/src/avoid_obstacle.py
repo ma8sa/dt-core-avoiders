@@ -29,7 +29,7 @@ class Avoider(DTROS):
 
         hello_str = "hello world 1" 
         rospy.loginfo(hello_str)
-        super(Avoider, self).__init__(node_name="avoider", node_type=NodeType.PERCEPTION)
+        super(Avoider, self).__init__(node_name="lane_controller_node", node_type=NodeType.PERCEPTION)
 
         #rospy.init_node("avoider")
 
