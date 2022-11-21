@@ -27,7 +27,7 @@ class Avoider(DTROS):
         ''' put all the init stuff like states, lane coef , planned path status vairable here '''
         self.stuff = 0
 
-        hello_str = "hello world 1%s" % rospy.get_time()
+        hello_str = "hello world 1" 
         rospy.loginfo(hello_str)
         super(Avoider, self).__init__(node_name="avoider", node_type=NodeType.PERCEPTION)
 
