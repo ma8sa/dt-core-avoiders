@@ -78,6 +78,7 @@
 
     <!--- Avoiders -->
     <group if="$(arg avoiders)">
+            <remap from="avoid_obstacle/wheels_cmd" to="wheels_driver_node/wheels_cmd" />
 	    <include file="$(find avoiders)/launch/avoiders.launch">
 		    <arg name="veh" value="$(arg veh)"/>
 	    </include>
