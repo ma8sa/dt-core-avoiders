@@ -77,8 +77,7 @@
     <!-- end switch args -->
 
     <!--- Avoiders -->
-    <group if="($arg avoiders)">
-
+    <group if="$(arg avoiders)">
 	    <include file="$(find avoiders)/launch/avoiders.launch"/>
     </group>
 
