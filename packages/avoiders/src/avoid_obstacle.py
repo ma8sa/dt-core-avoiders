@@ -72,7 +72,7 @@ class Avoider(DTROS):
             #self.pub_motor.pub()
                 self.pub_motor.publish(car_control_msg)
 
-                hello_str = "hello world 4%s" % rospy.get_time()
+                hello_str = "hello world 6%s" % rospy.get_time()
                 rospy.loginfo(hello_str)
             
 
