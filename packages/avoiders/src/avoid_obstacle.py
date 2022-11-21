@@ -37,7 +37,7 @@ class Avoider(DTROS):
         rospy.loginfo(hello_str)
 
         self.pub_motor = rospy.Publisher(
-            "car_cmd", Twist2DStamped, queue_size=1, dt_topic_type=TopicType.CONTROL
+            "~car_cmd", Twist2DStamped, queue_size=1, dt_topic_type=TopicType.CONTROL
         )
         hello_str = "hello world 3%s" % rospy.get_time()
         rospy.loginfo(hello_str)
