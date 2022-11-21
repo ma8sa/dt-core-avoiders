@@ -8,6 +8,7 @@ import duckietown_code_utils as dtu
 import rospy
 from std_msgs.msg import String
 
+from duckietown.dtros import DTROS, NodeType, TopicType, DTParam, ParamType
 from duckietown_msgs.msg import (
     Twist2DStamped,
     LanePose,
@@ -20,7 +21,7 @@ from duckietown_msgs.msg import (
 # license removed for brevity
 
 
-class Avoider():
+class Avoider(DTROS):
 
     def __init__(self):
         ''' put all the init stuff like states, lane coef , planned path status vairable here '''
@@ -28,11 +29,11 @@ class Avoider():
 
         rospy.init_node("avoider")
 
-        self.pub_car_cmd = rospy.Publisher(
+        self.pub_motor = rospy.Publisher(
             "car_cmd", Twist2DStamped, queue_size=1, dt_topic_type=TopicType.CONTROL
         )
-        self.pub_motor = rospy.Publisher() # define the publisher here, in avoider node case it will the motor control and status message
-        self.pub_status = rospy.Publisher() # define the publisher here, in avoider node case it will the motor control and status message
+        #self.pub_motor = rospy.Publisher() # define the publisher here, in avoider node case it will the motor control and status message
+        #self.pub_status = rospy.Publisher() # define the publisher here, in avoider node case it will the motor control and status message
 
         obstacle_sub = message_filters.Subscriber('image', Image)
         lane_sub = message_filters.Subscriber('camera_info', CameraInfo)
