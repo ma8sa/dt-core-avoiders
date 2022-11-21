@@ -27,11 +27,20 @@ class Avoider(DTROS):
         ''' put all the init stuff like states, lane coef , planned path status vairable here '''
         self.stuff = 0
 
-        rospy.init_node("avoider")
+        hello_str = "hello world 1%s" % rospy.get_time()
+        rospy.loginfo(hello_str)
+        super(Avoider, self).__init__(node_name="avoider", node_type=NodeType.PERCEPTION)
+
+        #rospy.init_node("avoider")
+
+        hello_str = "hello world 2%s" % rospy.get_time()
+        rospy.loginfo(hello_str)
 
         self.pub_motor = rospy.Publisher(
             "car_cmd", Twist2DStamped, queue_size=1, dt_topic_type=TopicType.CONTROL
         )
+        hello_str = "hello world 3%s" % rospy.get_time()
+        rospy.loginfo(hello_str)
         #self.pub_motor = rospy.Publisher() # define the publisher here, in avoider node case it will the motor control and status message
         #self.pub_status = rospy.Publisher() # define the publisher here, in avoider node case it will the motor control and status message
 
@@ -53,15 +62,19 @@ class Avoider(DTROS):
 
 
             ''' in a loop, while follow that by publishing motor state '''
-
-            car_control_msg = Twist2DStamped()
-            car_control_msg.header = rospy.Time.now()
+            while(1):
+                car_control_msg = Twist2DStamped()
+                car_control_msg.header = rospy.Time.now()
 
         # Add commands to car message
-            car_control_msg.v = 2.0
-            car_control_msg.omega = 0
+                car_control_msg.v = 2.0
+                car_control_msg.omega = 0
             #self.pub_motor.pub()
-            self.pub_motor.publish(car_cmd_msg)
+                self.pub_motor.publish(car_cmd_msg)
+
+                hello_str = "hello world 4%s" % rospy.get_time()
+                rospy.loginfo(hello_str)
+            
 
         def path_plan(self,obstacle,lane):
             return 0
