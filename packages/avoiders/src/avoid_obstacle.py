@@ -82,7 +82,8 @@ class Avoider(DTROS):
             [self.sub_encoder_left, self.sub_encoder_right], 10, 0.5
         )
 
-        self.callback(0,0)
+        self.ts_encoders.registerCallback(self.cb_ts_encoders)
+        #self.callback(0,0)
 
 
     def cb_ts_encoders(self, left_encoder, right_encoder):
@@ -157,6 +158,31 @@ class Avoider(DTROS):
         self.encoders_timestamp_last = timestamp
         self.encoders_timestamp_last_local = timestamp_now
 
+        if self.wierd:
+            start_time = rospy.Time.now()
+            
+            message_count = [0,0,1,0,-1,0]
+            m_len = len(message_count)
+
+            self.iter_ = 0
+
+            while(self.state == 0):
+
+                car_control_msg = Twist2DStamped()
+                car_control_msg.header.stamp = rospy.Time.now()
+                car_control_msg.header.seq = 0
+
+        # Add commands to car message
+                car_control_msg.v = 0.3 
+                car_control_msg.omega = message_count[ iter_ % m_len ]
+            #self.pub_motor.pub()
+                self.pub_motor.publish(car_control_msg)
+                print(self.x,self.y,self.z)
+                cur_time = rospy.Time.now()
+                if cur_time.secs - start_time.secs > 1:
+                    start_time = rospy.Time.now()
+                    iter_ += 1
+
     def callback(self,obstacles,lane):
 
             ''' do planning stuff here '''
@@ -172,11 +198,10 @@ class Avoider(DTROS):
             message_count = [0,0,1,0,-1,0]
             m_len = len(message_count)
 
-            iter_ = 0
+            self.iter_ = 0
 
             while(self.state == 0):
 
-                self.ts_encoders.registerCallback(self.cb_ts_encoders)
                 car_control_msg = Twist2DStamped()
                 car_control_msg.header.stamp = rospy.Time.now()
                 car_control_msg.header.seq = 0
