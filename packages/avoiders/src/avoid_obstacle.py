@@ -174,7 +174,7 @@ class Avoider(DTROS):
             message_count = [0,0,1,0,-1,0]
             m_len = len(message_count)
 
-            self.iter_ = 0
+            iter_ = 0
             self.state = 0
 
             while(self.state == 0):
