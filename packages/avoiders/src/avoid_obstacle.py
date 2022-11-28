@@ -188,7 +188,7 @@ class Avoider(DTROS):
                 car_control_msg.omega = message_count[ iter_ % m_len ]
             #self.pub_motor.pub()
                 self.pub_motor.publish(car_control_msg)
-                print(self.x,self.y,self.z)
+                print(self.x,self.y,self.yaw)
                 cur_time = rospy.Time.now()
                 if cur_time.secs - start_time.secs > 1:
                     start_time = rospy.Time.now()
