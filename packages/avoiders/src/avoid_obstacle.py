@@ -31,7 +31,7 @@ class Avoider(DTROS):
 
         #rospy.init_node("avoider")
 
-        self.state = -1 #-1 failed, 0 in work , 1 finished
+        self.state = 0 #-1 failed, 0 in work , 1 finished
         rate = rospy.Rate(0.5)
 
 
