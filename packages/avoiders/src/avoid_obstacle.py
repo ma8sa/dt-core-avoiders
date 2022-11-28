@@ -71,7 +71,7 @@ class Avoider(DTROS):
             
             start_time = rospy.Time.now()
             
-            message_count = [0,0,0,1,0,0,-1,0,0,0]
+            message_count = [0,0,1,0,-1,0,0,0]
             m_len = len(message_count)
 
             iter_ = 0
@@ -83,7 +83,7 @@ class Avoider(DTROS):
                 car_control_msg.header.seq = 0
 
         # Add commands to car message
-                car_control_msg.v = 2.0
+                car_control_msg.v = 0.3 
                 car_control_msg.omega = message_count[ iter_ % m_len ]
             #self.pub_motor.pub()
                 self.pub_motor.publish(car_control_msg)
