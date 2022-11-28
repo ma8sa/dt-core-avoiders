@@ -75,8 +75,8 @@ class Avoider(DTROS):
         #ts.registerCallback(self.callback)
         
         # subscirber
-        self.sub_encoder_left = message_filters.Subscriber("~left_wheel", WheelEncoderStamped)
-        self.sub_encoder_right = message_filters.Subscriber("~right_wheel", WheelEncoderStamped)
+        self.sub_encoder_left = message_filters.Subscriber("/agent/left_wheel_encoder_node/tick", WheelEncoderStamped)
+        self.sub_encoder_right = message_filters.Subscriber("/agent/right_wheel_encoder_node/tick", WheelEncoderStamped)
 
         self.ts_encoders = message_filters.ApproximateTimeSynchronizer(
             [self.sub_encoder_left, self.sub_encoder_right], 10, 0.5
