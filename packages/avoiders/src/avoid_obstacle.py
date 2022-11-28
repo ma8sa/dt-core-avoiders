@@ -62,6 +62,8 @@ class Avoider(DTROS):
         self.q = [0.0, 0.0, 0.0, 1.0]
         self.tv = 0.0
         self.rv = 0.0
+
+        self.ticks_per_meter = 656.0
         #ROS
         #TODO : 1) get the subscirbers working 
         #TODO : 1.1) Test this using fake data
