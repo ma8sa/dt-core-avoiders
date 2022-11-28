@@ -31,10 +31,22 @@ class Avoider(DTROS):
 
         #rospy.init_node("avoider")
 
+        self.state = -1 #-1 failed, 0 in work , 1 finished
+        rate = rospy.Rate(0.5)
+
 
         self.pub_motor = rospy.Publisher(
             "~car_cmd", Twist2DStamped, queue_size=1, dt_topic_type=TopicType.CONTROL
         )
+
+        #ROS
+        #TODO : 1) get the subscirbers working 
+        #TODO : 1.1) Test this using fake data
+        
+        #Theory
+        #TODO : 2) given an obstacle plan an trajectory
+        #TODO : 3) execute the trajectory
+
         #self.pub_motor = rospy.Publisher() # define the publisher here, in avoider node case it will the motor control and status message
         #self.pub_status = rospy.Publisher() # define the publisher here, in avoider node case it will the motor control and status message
 
@@ -56,16 +68,30 @@ class Avoider(DTROS):
 
 
             ''' in a loop, while follow that by publishing motor state '''
-            while(1):
+            
+            start_time = rospy.Time.now()
+            
+            meassage_count = [0,0,0,np.pi/3,0,0,-np.pi/3,0,0,0]
+            m_len = len(message_count)
+
+            iter_ = 0
+
+            while(self.state == 0):
+
                 car_control_msg = Twist2DStamped()
                 car_control_msg.header.stamp = rospy.Time.now()
                 car_control_msg.header.seq = 0
 
         # Add commands to car message
                 car_control_msg.v = 2.0
-                car_control_msg.omega = 0
+                car_control_msg.omega = message_count[ iter_ % m_len ]
             #self.pub_motor.pub()
                 self.pub_motor.publish(car_control_msg)
+                
+                cur_time = rospu.Time.now()
+                if cur_time.secs - start_time.secs > 5:
+                    start_time = rospy.Time.now()
+                    iter_ += 1
 
             
 
