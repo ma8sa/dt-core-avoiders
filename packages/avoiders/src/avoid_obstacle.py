@@ -49,7 +49,12 @@ class Avoider(DTROS):
             "~car_cmd", Twist2DStamped, queue_size=1, dt_topic_type=TopicType.CONTROL
         )
 
+        self.left_encoder_last = None
+        self.right_encoder_last = None
+        self.encoders_timestamp_last = None
+        self.encoders_timestamp_last_local = None
         self.timestamp = None
+
         self.x = 0.0
         self.y = 0.0
         self.z = 0.0
