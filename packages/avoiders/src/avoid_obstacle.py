@@ -2,7 +2,7 @@
 # @create-shortcut-for-this
 
 import sys
-
+import math
 import duckietown_code_utils as dtu
 
 import rospy
@@ -194,6 +194,15 @@ class Avoider(DTROS):
                     start_time = rospy.Time.now()
                     iter_ += 1
                     self.state = 1
+
+    @staticmethod
+    def angle_clamp(theta):
+        if theta > 2 * math.pi:
+            return theta - 2 * math.pi
+        elif theta < -2 * math.pi:
+            return theta + 2 * math.pi
+        else:
+            return theta
 
     def callback(self,obstacles,lane):
 
