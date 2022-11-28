@@ -89,7 +89,7 @@ class Avoider(DTROS):
                 self.pub_motor.publish(car_control_msg)
                 
                 cur_time = rospy.Time.now()
-                if cur_time.secs - start_time.secs > 5:
+                if cur_time.secs - start_time.secs > 1:
                     start_time = rospy.Time.now()
                     iter_ += 1
 
