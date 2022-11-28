@@ -6,6 +6,7 @@ import sys
 import duckietown_code_utils as dtu
 
 import rospy
+import message_filters
 from std_msgs.msg import String
 
 from duckietown.dtros import DTROS, NodeType, TopicType, DTParam, ParamType
