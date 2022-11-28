@@ -14,6 +14,7 @@ from geometry_msgs.msg import Quaternion, Twist, Pose, Point, Vector3, Transform
 
 from duckietown.dtros import DTROS, NodeType
 from duckietown_msgs.msg import WheelEncoderStamped
+
 from tf2_ros import TransformBroadcaster
 
 from tf import transformations as tr
@@ -168,14 +169,14 @@ class Avoider(DTROS):
             
             start_time = rospy.Time.now()
             
-            message_count = [0,0,1,0,-1,0,0,0]
+            message_count = [0,0,1,0,-1,0]
             m_len = len(message_count)
 
             iter_ = 0
 
-            self.ts_encoders.registerCallback(self.cb_ts_encoders)
             while(self.state == 0):
 
+                self.ts_encoders.registerCallback(self.cb_ts_encoders)
                 car_control_msg = Twist2DStamped()
                 car_control_msg.header.stamp = rospy.Time.now()
                 car_control_msg.header.seq = 0
