@@ -71,7 +71,7 @@ class Avoider(DTROS):
             
             start_time = rospy.Time.now()
             
-            meassage_count = [0,0,0,1,0,0,-1,0,0,0]
+            message_count = [0,0,0,1,0,0,-1,0,0,0]
             m_len = len(message_count)
 
             iter_ = 0
