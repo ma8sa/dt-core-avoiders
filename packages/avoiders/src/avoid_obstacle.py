@@ -192,14 +192,14 @@ class Avoider(DTROS): #comment here
 
         # Add commands to car message
                 car_control_msg.v = 0.3 
-                car_control_msg.omega = self.compute_omega(target_state[iter_],self.x,self.y,self.yaw,dt)
+                car_control_msg.omega = self.compute_omega(self.target_states[iter_],self.x,self.y,self.yaw,dt)
                 
                 print( " car commands  ",car_control_msg.omega)
 
-                if self.check_point( target_state[iter_],np.array([self.x,self.y]) ):
+                if self.check_point( self.target_states[iter_],np.array([self.x,self.y]) ):
                     iter_ += 1
 
-                print("target_state_ ",target_state[iter_])
+                print("target_state_ ",self.target_states[iter_])
                 self.pub_motor.publish(car_control_msg)
                 print(self.x,self.y,self.yaw)
 
