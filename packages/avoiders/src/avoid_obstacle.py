@@ -31,7 +31,7 @@ from duckietown_msgs.msg import (
 # license removed for brevity
 
 
-class Avoider(DTROS):
+class Avoider(DTROS): #comment here 
 
     def __init__(self):
         ''' put all the init stuff like states, lane coef , planned path status vairable here '''
