@@ -250,9 +250,9 @@ class Avoider(DTROS): #comment here
     def path_plan(self,obstacle,lane):
             return 0
 
-    def compute_omega(self,target_x,target_y,x,y,current,dt):
+    def compute_omega(self,targetxy,y,current,dt):
         factor = 0.5 # PARAM 
-        target_yaw = np.arctan( (target_x - x)/(target_y- y) )
+        target_yaw = np.arctan( (targetxy[0] - x)/(targetxy[1]- y) )
         print("target yaw ", target_yaw)
         omega = factor* ((target - current)/dt)
 
