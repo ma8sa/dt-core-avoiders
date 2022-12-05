@@ -67,6 +67,9 @@ class Avoider(DTROS):
         self.debug = False
         self.wierd = True
         self.wheelbase = 0.1
+
+        #NOTE
+        self.target_states = np.array([ [0.001,0.001] , [0.001,0.002] ])
         #ROS
         #TODO : 1) get the subscirbers working 
         #TODO : 1.1) Test this using fake data
@@ -89,9 +92,12 @@ class Avoider(DTROS):
         self.sub_encoder_right = message_filters.Subscriber("/agent/right_wheel_encoder_node/tick", WheelEncoderStamped)
 
         self.ts_encoders = message_filters.ApproximateTimeSynchronizer(
-            [self.sub_encoder_left, self.sub_encoder_right], 10, 5
+            [self.sub_encoder_left, self.sub_encoder_right], 100, 50
         )
+            
 
+        #if path is created then only check for this 
+        # IF 
         self.ts_encoders.registerCallback(self.cb_ts_encoders)
         #self.callback(0,0)
 
@@ -185,15 +191,16 @@ class Avoider(DTROS):
 
         # Add commands to car message
                 car_control_msg.v = 0.3 
-                car_control_msg.omega = message_count[ iter_ % m_len ]
-            #self.pub_motor.pub()
+                car_control_msg.omega = self.compute_omega(target_state[iter_],self.x,self.y,self.yaw,dt)
+                
+                print( " car commands  ",car_control_msg.omega)
+
+                if self.check_point( target_state[iter_],np.array([self.x,self.y]) ):
+                    iter_ += 1
+
+                print("target_state_ ",target_state[iter_])
                 self.pub_motor.publish(car_control_msg)
                 print(self.x,self.y,self.yaw)
-                cur_time = rospy.Time.now()
-                if cur_time.secs - start_time.secs > 1:
-                    start_time = rospy.Time.now()
-                    iter_ += 1
-                    self.state = 1
 
     @staticmethod
     def angle_clamp(theta):
@@ -229,7 +236,6 @@ class Avoider(DTROS):
 
         # Add commands to car message
                 car_control_msg.v = 0.3 
-                car_control_msg.omega = message_count[ iter_ % m_len ]
             #self.pub_motor.pub()
                 self.pub_motor.publish(car_control_msg)
                 print(self.x,self.y,self.z)
@@ -243,26 +249,27 @@ class Avoider(DTROS):
     def path_plan(self,obstacle,lane):
             return 0
 
+    def compute_omega(self,target_x,target_y,x,y,current,dt):
+        factor = 0.5 # PARAM 
+        target_yaw = np.arctan( (target_x - x)/(target_y- y) )
+        print("target yaw ", target_yaw)
+        omega = factor* ((target - current)/dt)
+
+        return omega
+
+    def check_point(self,current_point,target_point):
+        threshold = 0.1
+
+        dist = np.sqrt(np.sum((current_point - target_point)**2 ))
+
+        if dist < thershold:
+            return True
+
+        return False
+
+
     
-
-
-
         
-
-def avoid_obstacle_static():
-
-    #taken from rospy tutorial and easy_node
-
-    pub = rospy.Publisher('chatter', String, queue_size=10)
-
-    rospy.init_node('avoid_obstacle_static', anonymous=True)
-
-    rate = rospy.Rate(10) # 10hz
-    while not rospy.is_shutdown():
-        hello_str = "hello world %s" % rospy.get_time()
-        rospy.loginfo(hello_str)
-        pub.publish(hello_str)
-        rate.sleep()
 
 if __name__ == '__main__':
     A = Avoider()
