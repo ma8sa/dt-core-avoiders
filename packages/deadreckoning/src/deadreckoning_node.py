@@ -77,7 +77,6 @@ class DeadReckoningNode(DTROS):
 
         # Setup subscribers
         self.sub_encoder_left = message_filters.Subscriber("~left_wheel", WheelEncoderStamped)
-
         self.sub_encoder_right = message_filters.Subscriber("~right_wheel", WheelEncoderStamped)
 
         # Setup the time synchronizer
