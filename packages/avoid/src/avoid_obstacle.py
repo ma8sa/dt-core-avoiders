@@ -25,7 +25,7 @@ def avoid_obstacle_static():
         hello_str = "hello world %s" % rospy.get_time()
         rospy.loginfo(hello_str)
         pub.publish(hello_str)
-        rate.sleep()
+        rate.sleep() // Zzz
 
 if __name__ == '__main__':
     dtu.wrap_script_entry_point(avoid_obstacle_static)
