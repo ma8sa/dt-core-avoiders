@@ -3,6 +3,7 @@
 
 import sys
 import math
+import numpy as np
 import duckietown_code_utils as dtu
 
 import rospy
