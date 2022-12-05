@@ -254,7 +254,7 @@ class Avoider(DTROS): #comment here
         factor = 0.5 # PARAM 
         target_yaw = np.arctan( (targetxy[0] - x)/(targetxy[1]- y) )
         print("target yaw ", target_yaw)
-        omega = factor* ((target - current)/dt)
+        omega = factor* ((target_yaw - current)/dt)
 
         return omega
 
