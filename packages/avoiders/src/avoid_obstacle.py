@@ -202,6 +202,7 @@ class Avoider(DTROS): #comment here
                 print("target_state_ ",self.target_states[iter_])
                 self.pub_motor.publish(car_control_msg)
                 print(self.x,self.y,self.yaw)
+                self.state = 1
 
     @staticmethod
     def angle_clamp(theta):
