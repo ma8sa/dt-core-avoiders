@@ -70,7 +70,7 @@ class Avoider(DTROS): #comment here
         self.wheelbase = 0.1
 
         #NOTE
-        self.target_states = np.array([ [0.4,0.1] , [0.5,0.9] ])
+        self.target_states = np.array([ [2.0,0.0] , [5,1.1] ])
         self.final_state = 0 # 0 still working , 1 done , -1 failed
         #ROS
         #TODO : 1) get the subscirbers working 
