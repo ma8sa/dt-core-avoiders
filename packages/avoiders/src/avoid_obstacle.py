@@ -70,7 +70,7 @@ class Avoider(DTROS): #comment here
         self.wheelbase = 0.1
 
         #NOTE
-        self.target_states = np.array([ [0.1,0.1] , [0.5,0.9] ])
+        self.target_states = np.array([ [0.4,0.1] , [0.5,0.9] ])
         self.final_state = 0 # 0 still working , 1 done , -1 failed
         #ROS
         #TODO : 1) get the subscirbers working 
@@ -252,7 +252,7 @@ class Avoider(DTROS): #comment here
             return 0
 
     def compute_omega(self,targetxy,x,y,current,dt):
-        factor = 0.1 # PARAM 
+        factor = 1 # PARAM 
 
         target_yaw = np.arctan2( (targetxy[1] - y),(targetxy[0]- x) )
 
