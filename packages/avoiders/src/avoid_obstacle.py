@@ -67,11 +67,11 @@ class Avoider(DTROS): #comment here
         self.ticks_per_meter = 656.0
         self.debug = False
         self.wierd = True
-        self.wheelbase = 0.1
+        self.wheelbase = 0.108
         self.iter_ = 0
 
         #NOTE
-        self.target_states = np.array([ [1.0,0.0] , [1.5,0.25]  ])
+        self.target_states = np.array([ [0.1,0.0] , [0.4,0.2],[0.5,0.2],[0.6,0]  ])
         self.final_state = 0 # 0 still working , 1 done , -1 failed
         #ROS
         #TODO : 1) get the subscirbers working 
@@ -192,7 +192,7 @@ class Avoider(DTROS): #comment here
             car_control_msg.header.seq = 0
 
         # Add commands to car message
-            car_control_msg.v = 0.2
+            car_control_msg.v = 0.15
             car_control_msg.omega = self.compute_omega(self.target_states[self.iter_],self.x,self.y,self.yaw,dt)
                 
             print( " car commands  ",car_control_msg.omega)
