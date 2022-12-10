@@ -192,7 +192,7 @@ class Avoider(DTROS): #comment here
             car_control_msg.header.seq = 0
 
         # Add commands to car message
-            car_control_msg.v = 0.15
+            car_control_msg.v = 0.2
             car_control_msg.omega = self.compute_omega(self.target_states[self.iter_],self.x,self.y,self.yaw,dt)
                 
             print( " car commands  ",car_control_msg.omega)
@@ -261,7 +261,7 @@ class Avoider(DTROS): #comment here
             return 0
 
     def compute_omega(self,targetxy,x,y,current,dt):
-        factor = 1 # PARAM 
+        factor = 1.5 # PARAM 
 
         print("compute omega targetxy", targetxy)
         print("compute omega current",x,y)
@@ -277,13 +277,14 @@ class Avoider(DTROS): #comment here
 
     def check_point(self,current_point,target_point):
         threshold = 0.1
-        dist = np.sqrt(np.sum((current_point - target_point)**2 ))
+        #dist = np.sqrt(np.sum((current_point - target_point)**2 ))
+        dist = current_point - target_point
         print("check if we reached ")
         print("dist ",dist)
         print(" current and target point",current_point,target_point)
         print("-"*10)
 
-        if dist < threshold:
+        if dist[0] < threshold or dist[1] < threshold:
             return True
 
         return False
