@@ -192,6 +192,7 @@ class Avoider(DTROS): #comment here
             car_control_msg.omega = self.compute_omega(self.target_states[iter_],self.x,self.y,self.yaw,dt)
                 
             print( " car commands  ",car_control_msg.omega)
+            print("car control given",car_control_msg)
 
             if self.check_point( np.array([self.x,self.y]),self.target_states[iter_] ):
                     iter_ += 1
@@ -240,7 +241,6 @@ class Avoider(DTROS): #comment here
                 car_control_msg.v = 0.3 
             #self.pub_motor.pub()
                 self.pub_motor.publish(car_control_msg)
-                print(self.x,self.y,self.z)
                 cur_time = rospy.Time.now()
                 if cur_time.secs - start_time.secs > 1:
                     start_time = rospy.Time.now()
@@ -252,19 +252,24 @@ class Avoider(DTROS): #comment here
             return 0
 
     def compute_omega(self,targetxy,x,y,current,dt):
-        factor = 0.5 # PARAM 
+        factor = 0.05 # PARAM 
+
         target_yaw = np.arctan( (targetxy[1] - y)/(targetxy[0]- x) )
+
         print("target yaw ", np.rad2deg(target_yaw))
         print("currnt_yaw ", np.rad2deg(current))
-        omega = factor* ((target_yaw - current)/dt)
+
+        omega = factor* ((target_yaw - current))
 
         return omega
 
     def check_point(self,current_point,target_point):
         threshold = 0.01
         dist = np.sqrt(np.sum((current_point - target_point)**2 ))
+        print("check if we reached ")
         print("dist ",dist)
         print(" current and target point",current_point,target_point)
+        print("-"*10)
 
         if dist < threshold:
             return True
