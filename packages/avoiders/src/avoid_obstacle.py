@@ -276,15 +276,16 @@ class Avoider(DTROS): #comment here
         return omega
 
     def check_point(self,current_point,target_point):
-        threshold = 0.03
-        #dist = np.sqrt(np.sum((current_point - target_point)**2 ))
-        dist = current_point - target_point
+        threshold = 0.1
+        threshold_x = 0.05
+        dist = np.sqrt(np.sum((current_point - target_point)**2 ))
+        dist_x = current_point - target_point
         print("check if we reached ")
         print("dist ",dist)
         print(" current and target point",current_point,target_point)
         print("-"*10)
 
-        if abs(dist[0]) < threshold or abs(dist[1]) < threshold:
+        if (dist_x[0]) > threshold_x or (dist) < threshold:
             return True
 
         return False
