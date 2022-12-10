@@ -188,7 +188,7 @@ class Avoider(DTROS): #comment here
             car_control_msg.header.seq = 0
 
         # Add commands to car message
-            car_control_msg.v = 0.3 
+            car_control_msg.v = 0.2
             car_control_msg.omega = self.compute_omega(self.target_states[iter_],self.x,self.y,self.yaw,dt)
                 
             print( " car commands  ",car_control_msg.omega)
@@ -252,9 +252,9 @@ class Avoider(DTROS): #comment here
             return 0
 
     def compute_omega(self,targetxy,x,y,current,dt):
-        factor = 0.05 # PARAM 
+        factor = 0.1 # PARAM 
 
-        target_yaw = np.arctan( (targetxy[1] - y)/(targetxy[0]- x) )
+        target_yaw = np.arctan2( (targetxy[1] - y)/(targetxy[0]- x) )
 
         print("target yaw ", np.rad2deg(target_yaw))
         print("currnt_yaw ", np.rad2deg(current))
