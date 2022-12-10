@@ -254,7 +254,7 @@ class Avoider(DTROS): #comment here
     def compute_omega(self,targetxy,x,y,current,dt):
         factor = 0.1 # PARAM 
 
-        target_yaw = np.arctan2( (targetxy[1] - y)/(targetxy[0]- x) )
+        target_yaw = np.arctan2( (targetxy[1] - y),(targetxy[0]- x) )
 
         print("target yaw ", np.rad2deg(target_yaw))
         print("currnt_yaw ", np.rad2deg(current))
