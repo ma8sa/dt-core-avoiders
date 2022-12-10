@@ -72,7 +72,7 @@ class Avoider(DTROS): #comment here
 
         #NOTE
         self.target_states = np.array([  [0.3,0.2],[0.5,0.2],[0.7,0]  ])
-        self.len_states = len(self.target_states)
+        self.len_states = self.target_states.shape[0]
         self.final_state = 0 # 0 still working , 1 done , -1 failed
         #ROS
         #TODO : 1) get the subscirbers working 
@@ -281,7 +281,6 @@ class Avoider(DTROS): #comment here
         threshold_x = 0.05
 
         if self.iter_ == self.len_states - 1:
-
             dist_x = current_point - target_point
             return abs(dist_x[1]) < threshold_x:
                 return True
