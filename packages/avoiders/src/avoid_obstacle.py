@@ -93,7 +93,7 @@ class Avoider(DTROS): #comment here
         self.sub_encoder_right = message_filters.Subscriber("/agent/right_wheel_encoder_node/tick", WheelEncoderStamped)
 
         self.ts_encoders = message_filters.ApproximateTimeSynchronizer(
-            [self.sub_encoder_left, self.sub_encoder_right], 10, 5
+            [self.sub_encoder_left, self.sub_encoder_right], 1, 1
         )
             
 
@@ -184,25 +184,24 @@ class Avoider(DTROS): #comment here
             iter_ = 0
             self.state = 0
 
-            while(self.state == 0):
 
-                car_control_msg = Twist2DStamped()
-                car_control_msg.header.stamp = rospy.Time.now()
-                car_control_msg.header.seq = 0
+            car_control_msg = Twist2DStamped()
+            car_control_msg.header.stamp = rospy.Time.now()
+            car_control_msg.header.seq = 0
 
         # Add commands to car message
-                car_control_msg.v = 0.3 
-                car_control_msg.omega = self.compute_omega(self.target_states[iter_],self.x,self.y,self.yaw,dt)
+            car_control_msg.v = 0.3 
+            car_control_msg.omega = self.compute_omega(self.target_states[iter_],self.x,self.y,self.yaw,dt)
                 
-                print( " car commands  ",car_control_msg.omega)
+            print( " car commands  ",car_control_msg.omega)
 
-                if self.check_point( self.target_states[iter_],np.array([self.x,self.y]) ):
+            if self.check_point( self.target_states[iter_],np.array([self.x,self.y]) ):
                     iter_ += 1
 
-                print("target_state_ ",self.target_states[iter_])
-                self.pub_motor.publish(car_control_msg)
-                print(self.x,self.y,self.yaw)
-                self.state = 1
+            print("target_state_ ",self.target_states[iter_])
+            self.pub_motor.publish(car_control_msg)
+            print("cur state ",self.x,self.y,self.yaw)
+            self.state = 1
 
     @staticmethod
     def angle_clamp(theta):
