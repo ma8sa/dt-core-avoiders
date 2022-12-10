@@ -71,7 +71,7 @@ class Avoider(DTROS): #comment here
         self.iter_ = 0
 
         #NOTE
-        self.target_states = np.array([ [1.0,0.0] , [1.5,0.5]  ])
+        self.target_states = np.array([ [1.0,0.0] , [1.5,0.25]  ])
         self.final_state = 0 # 0 still working , 1 done , -1 failed
         #ROS
         #TODO : 1) get the subscirbers working 
@@ -276,7 +276,7 @@ class Avoider(DTROS): #comment here
         return omega
 
     def check_point(self,current_point,target_point):
-        threshold = 0.3
+        threshold = 0.1
         dist = np.sqrt(np.sum((current_point - target_point)**2 ))
         print("check if we reached ")
         print("dist ",dist)
