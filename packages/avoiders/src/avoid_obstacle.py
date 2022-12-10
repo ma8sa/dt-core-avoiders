@@ -68,6 +68,7 @@ class Avoider(DTROS): #comment here
         self.debug = False
         self.wierd = True
         self.wheelbase = 0.1
+        self.iter_ = 0
 
         #NOTE
         self.target_states = np.array([ [1.0,0.0] , [3,2] ])
@@ -178,9 +179,9 @@ class Avoider(DTROS): #comment here
         self.encoders_timestamp_last_local = timestamp_now
 
         if self.wierd:
+            print("iterator ",self.iter_)
             start_time = rospy.Time.now()
             
-            iter_ = 0
             self.state = 0
 
             car_control_msg = Twist2DStamped()
@@ -189,18 +190,20 @@ class Avoider(DTROS): #comment here
 
         # Add commands to car message
             car_control_msg.v = 0.2
-            car_control_msg.omega = self.compute_omega(self.target_states[iter_],self.x,self.y,self.yaw,dt)
+            car_control_msg.omega = self.compute_omega(self.target_states[self.iter_],self.x,self.y,self.yaw,dt)
                 
             print( " car commands  ",car_control_msg.omega)
             print("car control given",car_control_msg)
 
-            if self.check_point( np.array([self.x,self.y]),self.target_states[iter_] ):
-                    iter_ += 1
-                    if iter_ == len(self.target_states):
+            if self.check_point( np.array([self.x,self.y]),self.target_states[self.iter_] ):
+                    self.iter_ += 1
+                    car_control_msg.v = 0.0
+
+                    if self.iter_ == len(self.target_states):
                         self.final_state = 1 # DONE
                         return 
 
-            print("target_state_ ",self.target_states[iter_])
+            print("target_state_ ",self.target_states[self.iter_])
             self.pub_motor.publish(car_control_msg)
             print("cur state ",self.x,self.y,self.yaw)
             self.state = 1
@@ -213,46 +216,49 @@ class Avoider(DTROS): #comment here
             return theta + 2 * math.pi
         else:
             return theta
-
-    def callback(self,obstacles,lane):
-
-            ''' do planning stuff here '''
-            path = self.path_plan(obstacles,lane)
-
-            rospy.loginfo( " in the node printing yeaaaah")
-
-
-            ''' in a loop, while follow that by publishing motor state '''
-            
-            start_time = rospy.Time.now()
-            
-            message_count = [0,0,1,0,-1,0]
-            m_len = len(message_count)
-
-            self.iter_ = 0
-
-            while(self.state == 0):
-
-                car_control_msg = Twist2DStamped()
-                car_control_msg.header.stamp = rospy.Time.now()
-                car_control_msg.header.seq = 0
-
-        # Add commands to car message
-                car_control_msg.v = 0.3 
-            #self.pub_motor.pub()
-                self.pub_motor.publish(car_control_msg)
-                cur_time = rospy.Time.now()
-                if cur_time.secs - start_time.secs > 1:
-                    start_time = rospy.Time.now()
-                    iter_ += 1
-
-            
+#
+#    def callback(self,obstacles,lane):
+#
+#            ''' do planning stuff here '''
+#            path = self.path_plan(obstacles,lane)
+#
+#            rospy.loginfo( " in the node printing yeaaaah")
+#
+#
+#            ''' in a loop, while follow that by publishing motor state '''
+#            
+#            start_time = rospy.Time.now()
+#            
+#            message_count = [0,0,1,0,-1,0]
+#            m_len = len(message_count)
+#
+#            self.iter_ = 0
+#
+#            while(self.state == 0):
+#
+#                car_control_msg = Twist2DStamped()
+#                car_control_msg.header.stamp = rospy.Time.now()
+#                car_control_msg.header.seq = 0
+#
+#        # Add commands to car message
+#                car_control_msg.v = 0.3 
+#            #self.pub_motor.pub()
+#                self.pub_motor.publish(car_control_msg)
+#                cur_time = rospy.Time.now()
+#                if cur_time.secs - start_time.secs > 1:
+#                    start_time = rospy.Time.now()
+#                    iter_ += 1
+#
+#            
 
     def path_plan(self,obstacle,lane):
             return 0
 
     def compute_omega(self,targetxy,x,y,current,dt):
-        factor = 2 # PARAM 
+        factor = 1 # PARAM 
+
+        print("compute omega targetxy", targetxy)
+        print("compute omega current",x,y)
 
         target_yaw = np.arctan2( (targetxy[1] - y),(targetxy[0]- x) )
 
