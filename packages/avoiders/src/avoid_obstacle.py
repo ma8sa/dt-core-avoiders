@@ -193,7 +193,7 @@ class Avoider(DTROS): #comment here
                 
             print( " car commands  ",car_control_msg.omega)
 
-            if self.check_point( self.target_states[iter_],np.array([self.x,self.y]) ):
+            if self.check_point( np.array([self.x,self.y]),self.target_states[iter_] ):
                     iter_ += 1
                     if iter_ == len(self.target_states):
                         self.final_state = 1 # DONE
@@ -253,8 +253,9 @@ class Avoider(DTROS): #comment here
 
     def compute_omega(self,targetxy,x,y,current,dt):
         factor = 0.5 # PARAM 
-        target_yaw = np.arctan( (targetxy[0] - x)/(targetxy[1]- y) )
-        print("target yaw ", target_yaw)
+        target_yaw = np.arctan( (targetxy[1] - y)/(targetxy[0]- x) )
+        print("target yaw ", np.rad2deg(target_yaw))
+        print("currnt_yaw ", np.rad2deg(current_yaw))
         omega = factor* ((target_yaw - current)/dt)
 
         return omega
