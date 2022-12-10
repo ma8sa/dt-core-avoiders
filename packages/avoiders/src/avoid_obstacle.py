@@ -281,10 +281,11 @@ class Avoider(DTROS): #comment here
         threshold = 0.1
         threshold_x = 0.05
 
-        if self.iter_ == self.len_states - 1:
+        if self.iter_ == (self.len_states - 1):
 
             dist_x = current_point - target_point
-            return abs(dist_x[1]) < threshold_x:
+
+            if abs(dist_x[1]) < threshold_x:
                 return True
 
             return False
