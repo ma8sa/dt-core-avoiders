@@ -140,8 +140,9 @@ class Avoider(DTROS): #comment here
         dt = timestamp - self.encoders_timestamp_last
 
         if dt < 1e-6:
-            self.logwarn("Time since last encoder message (%f) is too small. Ignoring" % dt)
-            return
+            #self.logwarn("Time since last encoder message (%f) is too small. Ignoring" % dt)
+            dt = 1e-6
+            #return
 
         self.tv = distance / dt
         self.rv = dyaw / dt
