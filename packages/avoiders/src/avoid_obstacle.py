@@ -71,7 +71,7 @@ class Avoider(DTROS): #comment here
         self.iter_ = 0
 
         #NOTE
-        self.target_states = np.array([ [1.0,0.0] , [3,2] ])
+        self.target_states = np.array([ [1.0,0.0] , [1.5,0.5] , [0,0.5]])
         self.final_state = 0 # 0 still working , 1 done , -1 failed
         #ROS
         #TODO : 1) get the subscirbers working 
