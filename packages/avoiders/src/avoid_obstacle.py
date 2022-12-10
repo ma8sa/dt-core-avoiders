@@ -70,7 +70,8 @@ class Avoider(DTROS): #comment here
         self.wheelbase = 0.1
 
         #NOTE
-        self.target_states = np.array([ [0.001,0.001] , [0.001,0.002] ])
+        self.target_states = np.array([ [0.1,0.1] , [0.5,0.9] ])
+        self.final_state = 0 # 0 still working , 1 done , -1 failed
         #ROS
         #TODO : 1) get the subscirbers working 
         #TODO : 1.1) Test this using fake data
@@ -179,12 +180,8 @@ class Avoider(DTROS): #comment here
         if self.wierd:
             start_time = rospy.Time.now()
             
-            message_count = [0,0,1,0,-1,0]
-            m_len = len(message_count)
-
             iter_ = 0
             self.state = 0
-
 
             car_control_msg = Twist2DStamped()
             car_control_msg.header.stamp = rospy.Time.now()
@@ -198,6 +195,9 @@ class Avoider(DTROS): #comment here
 
             if self.check_point( self.target_states[iter_],np.array([self.x,self.y]) ):
                     iter_ += 1
+                    if iter_ == len(self.target_states):
+                        self.final_state = 1 # DONE
+                        return 
 
             print("target_state_ ",self.target_states[iter_])
             self.pub_motor.publish(car_control_msg)
@@ -260,10 +260,10 @@ class Avoider(DTROS): #comment here
         return omega
 
     def check_point(self,current_point,target_point):
-        threshold = 0.001
-
+        threshold = 0.01
         dist = np.sqrt(np.sum((current_point - target_point)**2 ))
         print("dist ",dist)
+        print(" current and target point",current_point,target_point)
 
         if dist < threshold:
             return True
