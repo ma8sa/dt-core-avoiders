@@ -71,7 +71,7 @@ class Avoider(DTROS): #comment here
         self.iter_ = 0
 
         #NOTE
-        self.target_states = np.array([ [1.0,0.0] , [1.5,0.5] , [0,0.5]])
+        self.target_states = np.array([ [1.0,0.0] , [1.5,0.5]  ])
         self.final_state = 0 # 0 still working , 1 done , -1 failed
         #ROS
         #TODO : 1) get the subscirbers working 
@@ -181,7 +181,7 @@ class Avoider(DTROS): #comment here
         self.encoders_timestamp_last = timestamp
         self.encoders_timestamp_last_local = timestamp_now
 
-        if self.wierd:
+        if self.wierd and self.final_state == 0:
             print("iterator ",self.iter_)
             start_time = rospy.Time.now()
             
@@ -204,6 +204,9 @@ class Avoider(DTROS): #comment here
 
                     if self.iter_ == len(self.target_states):
                         self.final_state = 1 # DONE
+                        car_control_msg.v = 0
+                        car_control_msg.omega = 0
+                        self.pub_motor.publish(car_control_msg)
                         return 
 
             print("target_state_ ",self.target_states[self.iter_])
