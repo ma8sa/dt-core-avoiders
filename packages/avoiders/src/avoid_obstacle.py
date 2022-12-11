@@ -83,32 +83,34 @@ class Avoider(DTROS): #comment here
         #TODO : 2) given an obstacle plan an trajectory
         #TODO : 3) execute the trajectory
 
-        #self.pub_motor = rospy.Publisher() # define the publisher here, in avoider node case it will the motor control and status message
-        #self.pub_status = rospy.Publisher() # define the publisher here, in avoider node case it will the motor control and status message
-
-        #obstacle_sub = message_filters.Subscriber('image', Image)
-        #lane_sub = message_filters.Subscriber('camera_info', CameraInfo)
-    
-        #ts = message_filters.TimeSynchronizer([image_sub, info_sub], 10)
-        #ts.registerCallback(self.callback)
         
         # subscirber
-        #self.sub_encoder_left = message_filters.Subscriber("/agent/left_wheel_encoder_node/tick", WheelEncoderStamped)
-        #self.sub_encoder_right = message_filters.Subscriber("/agent/right_wheel_encoder_node/tick", WheelEncoderStamped)
+        self.sub_encoder_left = message_filters.Subscriber("/agent/left_wheel_encoder_node/tick", WheelEncoderStamped)
+        self.sub_encoder_right = message_filters.Subscriber("/agent/right_wheel_encoder_node/tick", WheelEncoderStamped)
 
-        self.sub_encoder_left = message_filters.Subscriber("/calibratedduck/left_wheel_encoder_node/tick", WheelEncoderStamped)
-        self.sub_encoder_right = message_filters.Subscriber("/calibratedduck/right_wheel_encoder_node/tick", WheelEncoderStamped)
+        #self.sub_encoder_left = message_filters.Subscriber("/calibratedduck/left_wheel_encoder_node/tick", WheelEncoderStamped)
+        #self.sub_encoder_right = message_filters.Subscriber("/calibratedduck/right_wheel_encoder_node/tick", WheelEncoderStamped)
 
         self.ts_encoders = message_filters.ApproximateTimeSynchronizer(
             [self.sub_encoder_left, self.sub_encoder_right], 1, 1
         )
             
 
+        self.sub_path = rospy.Publisher(
+            "~avoidance_path", Polygon, self.execute,queue_size=10)
         #if path is created then only check for this 
         # IF 
-        self.ts_encoders.registerCallback(self.cb_ts_encoders)
         #self.callback(0,0)
 
+    def execute(self,poly,_):
+
+        self.target_states = []
+
+        self.target_states = [[poly.points[i].x,poly.points[i].y] for i in range(3)]
+
+        while(final_state == 0):
+            print("wainting for encoder messages ")
+            self.ts_encoders.registerCallback(self.cb_ts_encoders)
 
     def cb_ts_encoders(self, left_encoder, right_encoder):
         timestamp_now = rospy.get_time()
