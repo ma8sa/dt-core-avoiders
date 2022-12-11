@@ -178,8 +178,8 @@ class Avoider(DTROS): #comment here
         obstacle_info = self.rotate((0,0), np.array(list(obstacle_info)), lane_info[1])
         
         obstacle_2_lane_x = obstacle_info[0] + lane_info[0]
-        to_avoid = np.logical_not(np.logical_or(obstacle_2_lane_x < -OBSTACLE_RADIUS, 
-                             obstacle_2_lane_x > (LANE_WIDTH + OBSTACLE_RADIUS)))
+        to_avoid = np.logical_not(np.logical_or(obstacle_2_lane_x < -self.OBSTACLE_RADIUS, 
+                             obstacle_2_lane_x > (self.LANE_WIDTH + self.OBSTACLE_RADIUS)))
         
         return to_avoid
     
