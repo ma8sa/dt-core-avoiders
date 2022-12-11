@@ -60,7 +60,7 @@ class Avoider(DTROS): #comment here
 
         
         self.sub_lane_reading = rospy.Subscriber(
-            "~lane_pose", LanePose, self.get_pose, "lane_filter", queue_size=1
+            "/agent/lane_filter/lane_pose", LanePose, self.get_pose, "lane_filter", queue_size=1
         )
 
         # subscribe to objects
