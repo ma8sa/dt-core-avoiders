@@ -105,8 +105,8 @@ class Avoider(DTROS): #comment here
     def execute(self,poly,_):
 
         self.target_states = np.array([[poly.points[i].x,poly.points[i].y] for i in range(3)])
-
-        while(final_state == 0):
+        print(" in execute ")
+        while(self.final_state == 0):
             print("wainting for encoder messages ")
             self.ts_encoders.registerCallback(self.cb_ts_encoders)
 
