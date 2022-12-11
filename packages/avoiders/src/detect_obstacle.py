@@ -175,7 +175,7 @@ class Avoider(DTROS): #comment here
             to_avoid: boolean of whether we need to avoid obstacle
         """
         
-        obstacle_info = rotate((0,0), np.array(list(obstacle_info)), lane_info[1])
+        obstacle_info = self.rotate((0,0), np.array(list(obstacle_info)), lane_info[1])
         
         obstacle_2_lane_x = obstacle_info[:, 0] + lane_info[0]
         to_avoid = np.logical_not(np.logical_or(obstacle_2_lane_x < -OBSTACLE_RADIUS, 
