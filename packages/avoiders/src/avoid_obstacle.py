@@ -47,7 +47,7 @@ class Avoider(DTROS): #comment here
 
 
         self.pub_motor = rospy.Publisher(
-            "~car_cmd", Twist2DStamped, queue_size=1, dt_topic_type=TopicType.CONTROL
+            "~cr_cmd", Twist2DStamped, queue_size=1, dt_topic_type=TopicType.CONTROL
         )
 
         self.left_encoder_last = None
