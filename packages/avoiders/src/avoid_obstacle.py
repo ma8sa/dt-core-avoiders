@@ -263,7 +263,7 @@ class Avoider(DTROS): #comment here
             return 0
 
     def compute_omega(self,targetxy,x,y,current,dt):
-        factor = 3.0 # PARAM 
+        factor = 2.5 # PARAM 
 
         print("compute omega targetxy", targetxy)
         print("compute omega current",x,y)
