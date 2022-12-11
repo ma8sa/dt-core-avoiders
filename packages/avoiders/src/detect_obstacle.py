@@ -150,13 +150,11 @@ class Avoider(DTROS): #comment here
         #insted of returning publish message directly
         # convert the axis as well as the units
         poly = Polygon()
-        print("printing paths")
         for p in waypoints:
             point = Point32()
             point.x = (p[1]/100)
-            point.y = (p[0]/100)
+            point.y = -(p[0]/100)
             point.z = 0
-            print(p)
 
             poly.points.append(point)
 
