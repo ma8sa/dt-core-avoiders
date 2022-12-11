@@ -89,6 +89,10 @@ class Avoider(DTROS): #comment here
         self.pose_d =   input_pose_msg.d
         self.pose_phi = input_pose_msg.phi
         self.in_lane =  input_pose_msg.in_lane
+        print("got lane ")
+        if self.get_to_avoid(self.obstacle,[self.pose_d,self.pose_phi]):
+            print(" making path ")
+            self.plan(self.obstacle,[self.pose_d,self.pose_phi])
 
 
 ## ALL OBSTACLE_INFO ASSUMES THETA=0
@@ -146,11 +150,13 @@ class Avoider(DTROS): #comment here
         #insted of returning publish message directly
         # convert the axis as well as the units
         poly = Polygon()
+        print("printing paths")
         for p in waypoints:
             point = Point32()
             point.x = (p[1]/100)
             point.y = (p[0]/100)
             point.z = 0
+            print(p)
 
             poly.points.append(point)
 
