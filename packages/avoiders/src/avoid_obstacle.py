@@ -286,7 +286,7 @@ class Avoider(DTROS): #comment here
         return omega
 
     def check_point(self,current_point,target_point):
-        threshold = 0.1
+        threshold = 0.05
         threshold_x = 0.05
 
         if self.iter_ == (self.len_states - 1):

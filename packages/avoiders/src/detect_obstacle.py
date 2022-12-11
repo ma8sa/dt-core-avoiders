@@ -56,7 +56,7 @@ class Avoider(DTROS): #comment here
         self.pose_phi = 0
         self.in_lane = False
 
-        self.obstacle = [20,20] # obstacle in robo frame , units:cm
+        self.obstacle = [50,30] # obstacle in robo frame , units:cm
 
         
         self.sub_lane_reading = rospy.Subscriber(
