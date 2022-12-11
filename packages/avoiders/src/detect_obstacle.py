@@ -123,7 +123,7 @@ class Avoider(DTROS): #comment here
         Outputs:
             waypoints: list of waypoints [(x_1,  y_1), (x_2, y_2), ..., (x_n, y_n)] in original robot frame
         """
-        dist2obstacle = np.sqrt(obstacle_info[0]**2 + obstacle_info[1]**2)
+        lane_info[0] = lane_info[0] + (self.LANE_WIDTH/2)
         
         obstacle_info = self.rotate((0,0), np.array(list(obstacle_info)), lane_info[1])
     
@@ -175,6 +175,7 @@ class Avoider(DTROS): #comment here
             to_avoid: boolean of whether we need to avoid obstacle
         """
         
+        lane_info[0] = lane_info[0] + (self.LANE_WIDTH/2)
         obstacle_info = self.rotate((0,0), np.array(list(obstacle_info)), lane_info[1])
         print("updated obstacle ",obstacle_info)    
         obstacle_2_lane_x = obstacle_info[0] + lane_info[0]
