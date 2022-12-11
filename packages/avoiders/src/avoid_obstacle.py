@@ -96,7 +96,7 @@ class Avoider(DTROS): #comment here
         )
             
 
-        self.sub_path = rospy.Publisher(
+        self.sub_path = rospy.Subscriber(
             "/agent/detect_obstacle/avoidance_path", Polygon, self.execute,queue_size=10)
         #if path is created then only check for this 
         # IF 
