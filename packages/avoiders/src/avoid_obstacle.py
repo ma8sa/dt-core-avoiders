@@ -102,7 +102,7 @@ class Avoider(DTROS): #comment here
         # IF 
         #self.callback(0,0)
 
-    def execute(self,poly,_):
+    def execute(self,poly):
 
         self.target_states = np.array([[poly.points[i].x,poly.points[i].y] for i in range(3)])
         print(" in execute ")
