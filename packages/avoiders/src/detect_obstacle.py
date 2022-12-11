@@ -56,7 +56,7 @@ class Avoider(DTROS): #comment here
         self.pose_phi = 0
         self.in_lane = False
 
-        self.obstacle = [0,30] # obstacle in robo frame , units:cm
+        self.obstacle = [20,20] # obstacle in robo frame , units:cm
 
         
         self.sub_lane_reading = rospy.Subscriber(
@@ -176,7 +176,7 @@ class Avoider(DTROS): #comment here
         """
         
         obstacle_info = self.rotate((0,0), np.array(list(obstacle_info)), lane_info[1])
-        
+        print("updated obstacle ",obstacle_info)    
         obstacle_2_lane_x = obstacle_info[0] + lane_info[0]
         to_avoid = np.logical_not(np.logical_or(obstacle_2_lane_x < -self.OBSTACLE_RADIUS, 
                              obstacle_2_lane_x > (self.LANE_WIDTH + self.OBSTACLE_RADIUS)))
