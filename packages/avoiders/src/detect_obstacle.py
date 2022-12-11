@@ -94,9 +94,9 @@ class Avoider(DTROS): #comment here
         print(self.pose_d)
         print(self.pose_phi)
 
-        if self.get_to_avoid(self.obstacle,[self.pose_d,self.pose_phi]):
+        if self.get_to_avoid(self.obstacle,[self.pose_d * (-100),self.pose_phi]):
             print(" making path ")
-            self.plan(self.obstacle,[self.pose_d,self.pose_phi])
+            self.plan(self.obstacle,[self.pose_d * (-100),self.pose_phi])
 
 
 ## ALL OBSTACLE_INFO ASSUMES THETA=0
