@@ -11,7 +11,7 @@ import message_filters
 from std_msgs.msg import String
 
 from nav_msgs.msg import Odometry
-from geometry_msgs.msg import Quaternion, Twist, Pose, Point, Vector3, TransformStamped, Transform
+from geometry_msgs.msg import Quaternion, Twist, Pose, Point, Vector3, TransformStamped, Transform, Point32
 
 from duckietown.dtros import DTROS, NodeType
 from duckietown_msgs.msg import WheelEncoderStamped
@@ -38,7 +38,7 @@ class Avoider(DTROS): #comment here
         ''' put all the init stuff like states, lane coef , planned path status vairable here '''
         self.stuff = 0
 
-        super(Avoider, self).__init__(node_name="lane_controller_node", node_type=NodeType.PERCEPTION)
+        super(Avoider, self).__init__(node_name="controller_node", node_type=NodeType.PERCEPTION)
 
         #rospy.init_node("avoider")
 
@@ -106,7 +106,7 @@ class Avoider(DTROS): #comment here
 
         self.target_states = []
 
-        self.target_states = [[poly.points[i].x,poly.points[i].y] for i in range(3)]
+        self.target_states = np.array([[poly.points[i].x,poly.points[i].y] for i in range(3)])
 
         while(final_state == 0):
             print("wainting for encoder messages ")
