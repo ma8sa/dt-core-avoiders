@@ -11,7 +11,7 @@ import message_filters
 from std_msgs.msg import String
 
 from nav_msgs.msg import Odometry
-from geometry_msgs.msg import Quaternion, Twist, Pose, Point, Vector3, TransformStamped, Transform, Polygon
+from geometry_msgs.msg import Quaternion, Twist, Pose, Point, Vector3, TransformStamped, Transform, Polygon, Point32
 
 from duckietown.dtros import DTROS, NodeType
 from duckietown_msgs.msg import WheelEncoderStamped
