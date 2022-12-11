@@ -90,6 +90,7 @@ class Avoider(DTROS): #comment here
         self.pose_phi = input_pose_msg.phi
         self.in_lane =  input_pose_msg.in_lane
         print("got lane ")
+
         if self.get_to_avoid(self.obstacle,[self.pose_d,self.pose_phi]):
             print(" making path ")
             self.plan(self.obstacle,[self.pose_d,self.pose_phi])
@@ -127,6 +128,7 @@ class Avoider(DTROS): #comment here
         obstacle_info = self.rotate((0,0), np.array(list(obstacle_info)), lane_info[1])
     
         # Assume obstacle_info[1] > 20
+        print("lane info ",lane_info)
         safe_distance = 10
         end_point = (0,  obstacle_info[1] + 20) # want to end up 20 centimeters past the obstacle, back at the same x coordinate
     
