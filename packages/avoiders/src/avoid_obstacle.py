@@ -111,13 +111,13 @@ class Avoider(DTROS): #comment here
         print(self.target_states)
 
 
-        while(self.final_state == 0):
-            print("wainting for encoder messages ")
-            self.path_valid = True
+        #while(self.final_state == 0):
+            #print("wainting for encoder messages ")
+        self.path_valid = True
 
     def cb_ts_encoders(self, left_encoder, right_encoder):
 
-        if self.path_valid == False:
+        if self.path_valid == False or self.final_state == 1:
             return
         timestamp_now = rospy.get_time()
 
