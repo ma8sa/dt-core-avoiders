@@ -9,7 +9,7 @@
         <group ns="$(arg veh)">
 	    <node  pkg="$(arg pkg_name)" type="$(arg node_name).py" name="$(arg node_name)" output="screen">
 	    </node>
-	    <node  pkg="$(arg pkg_name)" type="$(arg node_name).py" name="$(arg node_name_2)" output="screen">
+	    <node  pkg="$(arg pkg_name)" type="$(arg node_name_2).py" name="$(arg node_name_2)" output="screen">
 	    </node>
 	</group>
 
