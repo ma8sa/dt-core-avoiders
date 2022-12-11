@@ -75,6 +75,7 @@ class Avoider(DTROS): #comment here
         self.len_states = self.target_states.shape[0]
         print(self.len_states)
         self.final_state = 0 # 0 still working , 1 done , -1 failed
+        self.path_valid = False
         #ROS
         #TODO : 1) get the subscirbers working 
         #TODO : 1.1) Test this using fake data
@@ -95,6 +96,7 @@ class Avoider(DTROS): #comment here
             [self.sub_encoder_left, self.sub_encoder_right], 1, 1
         )
             
+        self.ts_encoders.registerCallback(self.cb_ts_encoders)
 
         self.sub_path = rospy.Subscriber(
             "/agent/detect_obstacle/avoidance_path", Polygon, self.execute,queue_size=10)
@@ -106,11 +108,17 @@ class Avoider(DTROS): #comment here
 
         self.target_states = np.array([[poly.points[i].x,poly.points[i].y] for i in range(3)])
         print(" in execute ")
+        print(self.target_states)
+
+
         while(self.final_state == 0):
             print("wainting for encoder messages ")
-            self.ts_encoders.registerCallback(self.cb_ts_encoders)
+            self.path_valid = True
 
     def cb_ts_encoders(self, left_encoder, right_encoder):
+
+        if self.path_valid == False:
+            return
         timestamp_now = rospy.get_time()
 
         # Use the average of the two encoder times as the timestamp
