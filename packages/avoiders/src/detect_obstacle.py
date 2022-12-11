@@ -40,7 +40,7 @@ class Avoider(DTROS): #comment here
 
         super(Avoider, self).__init__(node_name="detector_node", node_type=NodeType.PERCEPTION)
 
-        rospy.init_node("detector")
+        #rospy.init_node("detector")
         # declare variables here
 
         self.state = 0 #-1 failed, 0 in work , 1 finished
