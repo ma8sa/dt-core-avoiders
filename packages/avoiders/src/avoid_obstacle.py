@@ -11,7 +11,7 @@ import message_filters
 from std_msgs.msg import String
 
 from nav_msgs.msg import Odometry
-from geometry_msgs.msg import Quaternion, Twist, Pose, Point, Vector3, TransformStamped, Transform, Point32
+from geometry_msgs.msg import Quaternion, Twist, Pose, Point, Vector3, TransformStamped, Transform, Point32, Polygon
 
 from duckietown.dtros import DTROS, NodeType
 from duckietown_msgs.msg import WheelEncoderStamped
@@ -103,8 +103,6 @@ class Avoider(DTROS): #comment here
         #self.callback(0,0)
 
     def execute(self,poly,_):
-
-        self.target_states = []
 
         self.target_states = np.array([[poly.points[i].x,poly.points[i].y] for i in range(3)])
 
