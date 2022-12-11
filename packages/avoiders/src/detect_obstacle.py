@@ -79,10 +79,10 @@ class Avoider(DTROS): #comment here
 
         # TODO 
         # move this
-        if self.in_lane: # check if we have lane message or not
-            print(' we have valid lane message ')
-            if self.get_to_avoid(self.obstacle,[self.pose_d,self.pose_phi]):
-                self.plan(self.obstacle,[self.pose_d,self.pose_phi])
+        #if self.in_lane: # check if we have lane message or not
+        #    print(' we have valid lane message ')
+        #    if self.get_to_avoid(self.obstacle,[self.pose_d,self.pose_phi]):
+        #        self.plan(self.obstacle,[self.pose_d,self.pose_phi])
 
     def get_pose(self, input_pose_msg,source):
 
@@ -90,6 +90,9 @@ class Avoider(DTROS): #comment here
         self.pose_phi = input_pose_msg.phi
         self.in_lane =  input_pose_msg.in_lane
         print("got lane ")
+        print("Lane stuff ")
+        print(self.pose_d)
+        print(self.pose_phi)
 
         if self.get_to_avoid(self.obstacle,[self.pose_d,self.pose_phi]):
             print(" making path ")
