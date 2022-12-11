@@ -38,7 +38,7 @@ class Avoider(DTROS): #comment here
         ''' put all the init stuff like states, lane coef , planned path status vairable here '''
         self.stuff = 0
 
-        super(Avoider, self).__init__(node_name="lane_controller_node", node_type=NodeType.PERCEPTION)
+        super(Avoider, self).__init__(node_name="detector_node", node_type=NodeType.PERCEPTION)
 
         rospy.init_node("detector")
         # declare variables here
@@ -75,7 +75,6 @@ class Avoider(DTROS): #comment here
         #    "~lane_pose", LanePose, self.get_pose, "lane_filter", queue_size=1
     
         #subscribe to obstacle , make sure you fix units and axis NOTE
-        self.checker()
         # if we need to avoid , then publish avoidance path
 
         # TODO 
@@ -182,7 +181,7 @@ class Avoider(DTROS): #comment here
 
 
 if __name__ == '__main__':
-    A = Checker()
+    A = Avoider()
     rospy.spin()
     #obs_msg = None
     #lane_msg = None
