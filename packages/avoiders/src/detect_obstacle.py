@@ -89,6 +89,8 @@ class Avoider(DTROS): #comment here
         self.pose_d =   input_pose_msg.d
         self.pose_phi = input_pose_msg.phi
         self.in_lane =  input_pose_msg.in_lane
+
+        self.pose_phi = (np.pi/2)  - self.pose_phi
         print("got lane ")
         print("Lane stuff ")
         print(self.pose_d)
