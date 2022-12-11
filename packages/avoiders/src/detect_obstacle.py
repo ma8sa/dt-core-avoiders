@@ -84,7 +84,7 @@ class Avoider(DTROS): #comment here
             if self.get_to_avoid(self.obstacle,[self.pose_d,self.pose_phi]):
                 self.plan(self.obstacle,[self.pose_d,self.pose_phi])
 
-    def get_pose(self, input_pose_msg):
+    def get_pose(self, input_pose_msg,source):
 
         self.pose_d =   input_pose_msg.d
         self.pose_phi = input_pose_msg.phi
