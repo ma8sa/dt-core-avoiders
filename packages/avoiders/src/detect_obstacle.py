@@ -44,7 +44,7 @@ class Avoider(DTROS): #comment here
         # declare variables here
 
         self.state = 0 #-1 failed, 0 in work , 1 finished
-        self.rate = rospy.Rate(5)
+        self.rate = rospy.Rate(1)
 
         self.OBSTACLE_RADIUS = 5 # in centimeters
         self.LANE_WIDTH = 25.5
@@ -130,6 +130,7 @@ class Avoider(DTROS): #comment here
         lane_info[0] = lane_info[0] + (self.LANE_WIDTH/2)
         
         obstacle_info = self.rotate((0,0), np.array(list(obstacle_info)), lane_info[1])
+
         obstacle_info = np.array([0,40]) #TODO remove this 
     
         # Assume obstacle_info[1] > 20
