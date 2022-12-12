@@ -139,7 +139,7 @@ class Avoider(DTROS): #comment here
 
     def execute(self,poly):
         
-        if self.path_valid == False and self.planning == False:
+        if  self.planning == False:
             self.target_states = np.array([[poly.points[i].x,poly.points[i].y] for i in range(3)])
             print(" in execute ")
             print(self.target_states)
@@ -241,8 +241,8 @@ class Avoider(DTROS): #comment here
             car_control_msg.v = 0.2
             car_control_msg.omega = self.compute_omega(self.target_states[self.iter_],self.x,self.y,self.yaw,dt)
                 
-            #print( " car commands  ",car_control_msg.omega)
-            print("car control given",car_control_msg)
+            print( " car commands  ",car_control_msg.omega,car_control_msg.v)
+            #print("car control given",car_control_msg)
 
             if self.check_point( np.array([self.x,self.y]),self.target_states[self.iter_] ):
                     self.iter_ += 1
@@ -307,7 +307,7 @@ class Avoider(DTROS): #comment here
             return 0
 
     def compute_omega(self,targetxy,x,y,current,dt):
-        factor = 2.0 # PARAM 
+        factor = 2.5 # PARAM 
 
         #print("compute omega targetxy", targetxy)
         #print("compute omega current",x,y)
