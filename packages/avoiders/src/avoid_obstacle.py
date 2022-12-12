@@ -306,7 +306,8 @@ class Avoider(DTROS): #comment here
             print(" current and target point",current_point,target_point)
             print("-"*10)
 
-            if (dist_x[0]) > threshold_x or (dist) < threshold:
+            #if (dist_x[0]) > threshold_x or (dist) < threshold:
+            if  (dist) < threshold:
                 return True
 
             return False
