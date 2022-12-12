@@ -93,8 +93,8 @@ class Avoider(DTROS): #comment here
         #self.sub_encoder_left = message_filters.Subscriber("/calibratedduck/left_wheel_encoder_node/tick", WheelEncoderStamped)
         #self.sub_encoder_right = message_filters.Subscriber("/calibratedduck/right_wheel_encoder_node/tick", WheelEncoderStamped)
 
-        self.sub_encoder_left = message_filters.Subscriber("/duckonaut/left_wheel_encoder_node/tick", WheelEncoderStamped)
-        self.sub_encoder_right = message_filters.Subscriber("/duckonaut/right_wheel_encoder_node/tick", WheelEncoderStamped)
+        self.sub_encoder_left = message_filters.Subscriber("/stark/left_wheel_encoder_node/tick", WheelEncoderStamped)
+        self.sub_encoder_right = message_filters.Subscriber("/stark/right_wheel_encoder_node/tick", WheelEncoderStamped)
 
         self.ts_encoders = message_filters.ApproximateTimeSynchronizer(
             [self.sub_encoder_left, self.sub_encoder_right], 1, 1
@@ -107,7 +107,7 @@ class Avoider(DTROS): #comment here
         #self.sub_path = rospy.Subscriber(
         #    "/calibratedduck/detect_obstacle/avoidance_path", Polygon, self.execute,queue_size=10)
         self.sub_path = rospy.Subscriber(
-            "/duckonaut/detect_obstacle/avoidance_path", Polygon, self.execute,queue_size=10)
+            "/stark/detect_obstacle/avoidance_path", Polygon, self.execute,queue_size=10)
         #if path is created then only check for this 
         # IF 
         #self.callback(0,0)

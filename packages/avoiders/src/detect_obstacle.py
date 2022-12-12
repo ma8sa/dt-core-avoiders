@@ -63,7 +63,7 @@ class Avoider(DTROS): #comment here
         #    "/calibratedduck/lane_filter_node/lane_pose", LanePose, self.get_pose, "lane_filter", queue_size=1 #TODO need to fix hardcoded values
         #)
         self.sub_lane_reading = rospy.Subscriber(
-            "/duckonaut/lane_filter_node/lane_pose", LanePose, self.get_pose, "lane_filter", queue_size=1 #TODO need to fix hardcoded values
+            "/stark/lane_filter_node/lane_pose", LanePose, self.get_pose, "lane_filter", queue_size=1 #TODO need to fix hardcoded values
 
         # subscribe to objects
         #TODO
