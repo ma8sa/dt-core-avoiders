@@ -76,6 +76,7 @@ class Avoider(DTROS): #comment here
         print(self.len_states)
         self.final_state = 0 # 0 still working , 1 done , -1 failed
         self.path_valid = False
+        self.planning = False
         #ROS
         #TODO : 1) get the subscirbers working 
         #TODO : 1.1) Test this using fake data
@@ -105,10 +106,40 @@ class Avoider(DTROS): #comment here
         #if path is created then only check for this 
         # IF 
         #self.callback(0,0)
+    
+    def reset(self):
+
+        self.left_encoder_last = None
+        self.right_encoder_last = None
+        self.encoders_timestamp_last = None
+        self.encoders_timestamp_last_local = None
+        self.timestamp = None
+
+        self.x = 0.0
+        self.y = 0.0
+        self.z = 0.0
+        self.yaw = 0.0
+        self.q = [0.0, 0.0, 0.0, 1.0]
+        self.tv = 0.0
+        self.rv = 0.0
+
+        self.ticks_per_meter = 656.0
+        self.debug = False
+        self.wierd = True
+        self.wheelbase = 0.108
+        self.iter_ = 0
+
+        #NOTE
+        self.target_states = np.array([  [0.3,0.2],[0.5,0.2],[0.7,0]  ])
+        self.len_states = self.target_states.shape[0]
+        print(self.len_states)
+        self.final_state = 0 # 0 still working , 1 done , -1 failed
+        self.path_valid = False
+        self.planning = False
 
     def execute(self,poly):
         
-        if self.path_valid == False:
+        if self.path_valid == False and self.planning == False:
             self.target_states = np.array([[poly.points[i].x,poly.points[i].y] for i in range(3)])
             print(" in execute ")
             print(self.target_states)
@@ -122,6 +153,8 @@ class Avoider(DTROS): #comment here
 
         if self.path_valid == False or self.final_state == 1:
             return
+
+        self.planning = True
         timestamp_now = rospy.get_time()
 
         # Use the average of the two encoder times as the timestamp
