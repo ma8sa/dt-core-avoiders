@@ -78,7 +78,7 @@
 
     <!--- Avoiders -->
     <group if="$(arg avoiders)">
-            <remap from="avoid_obstacle/car_cmd" to="coordinator_node/car_cmd" />
+            <remap from="avoid_obstacle/car_cmd" to="car_cmd_switch_node/cmd" />
 	    <include file="$(find avoiders)/launch/avoiders.launch">
 		    <arg name="veh" value="$(arg veh)"/>
 	    </include>
