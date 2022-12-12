@@ -130,7 +130,7 @@ class Avoider(DTROS): #comment here
         lane_info[0] = lane_info[0] + (self.LANE_WIDTH/2)
         
         obstacle_info = self.rotate((0,0), np.array(list(obstacle_info)), lane_info[1])
-        obstacle_info = mp.array([0,40]) #TODO remove this 
+        obstacle_info = np.array([0,40]) #TODO remove this 
     
         # Assume obstacle_info[1] > 20
         safe_distance = 10
