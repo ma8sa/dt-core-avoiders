@@ -64,7 +64,7 @@ class Avoider(DTROS): #comment here
         #)
         self.sub_lane_reading = rospy.Subscriber(
             "/stark/lane_filter_node/lane_pose", LanePose, self.get_pose, "lane_filter", queue_size=1 #TODO need to fix hardcoded values
-
+        )
         # subscribe to objects
         #TODO
 
