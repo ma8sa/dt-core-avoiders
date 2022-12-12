@@ -44,7 +44,7 @@ class Avoider(DTROS): #comment here
         # declare variables here
 
         self.state = 0 #-1 failed, 0 in work , 1 finished
-        rate = rospy.Rate(0.5)
+        self.rate = rospy.Rate(5)
 
         self.OBSTACLE_RADIUS = 5 # in centimeters
         self.LANE_WIDTH = 25.5
@@ -165,6 +165,7 @@ class Avoider(DTROS): #comment here
             poly.points.append(point)
 
         self.pub_path.publish(poly)
+        self.rate.sleep()
             
 
 
