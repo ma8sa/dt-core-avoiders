@@ -144,9 +144,9 @@ class Avoider(DTROS): #comment here
             if safe_distance + (lane_info[0] + obstacle_info[0]) < 20:
                 middle_point = (max(obstacle_info[0] + safe_distance, end_point[0]), obstacle_info[1])
             else:
-                middle_point = (obstacle_info[0] - safe_distance, obstacle_info[1])
+                middle_point = (min(obstacle_info[0] - safe_distance,end_point[0]), obstacle_info[1])
         else:
-            middle_point = (obstacle_info[0] - safe_distance, obstacle_info[1])
+            middle_point = (min(obstacle_info[0] - safe_distance,end_point[0]), obstacle_info[1])
     
     
         first_third = (middle_point[0], middle_point[1]/2)
@@ -190,6 +190,7 @@ class Avoider(DTROS): #comment here
         to_avoid = np.logical_not(np.logical_or(obstacle_2_lane_x < -self.OBSTACLE_RADIUS, 
                              obstacle_2_lane_x > (self.LANE_WIDTH + self.OBSTACLE_RADIUS)))
         
+        print(to_avoid)
         return to_avoid
     
 
