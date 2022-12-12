@@ -258,7 +258,7 @@ class Avoider(DTROS): #comment here
                         car_control_msg.v = 0
                         car_control_msg.omega = 0
                         self.pub_motor.publish(car_control_msg)
-                        self.reset()
+                        #self.reset()
                         return 
 
             print("target_state_ ",self.target_states[self.iter_])
