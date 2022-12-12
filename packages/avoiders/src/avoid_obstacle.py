@@ -238,7 +238,7 @@ class Avoider(DTROS): #comment here
             car_control_msg.header.seq = 0
 
         # Add commands to car message
-            car_control_msg.v = 0.4
+            car_control_msg.v = 0.2
             car_control_msg.omega = self.compute_omega(self.target_states[self.iter_],self.x,self.y,self.yaw,dt)
                 
             print( " car commands  ",car_control_msg.omega,car_control_msg.v)
@@ -253,6 +253,7 @@ class Avoider(DTROS): #comment here
                         car_control_msg.v = 0
                         car_control_msg.omega = 0
                         self.pub_motor.publish(car_control_msg)
+                        self.reset()
                         return 
 
             print("target_state_ ",self.target_states[self.iter_])
