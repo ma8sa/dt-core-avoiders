@@ -107,10 +107,11 @@ class Avoider(DTROS): #comment here
         #self.callback(0,0)
 
     def execute(self,poly):
-
-        self.target_states = np.array([[poly.points[i].x,poly.points[i].y] for i in range(3)])
-        print(" in execute ")
-        print(self.target_states)
+        
+        if self.path_valid == False:
+            self.target_states = np.array([[poly.points[i].x,poly.points[i].y] for i in range(3)])
+            print(" in execute ")
+            print(self.target_states)
 
 
         #while(self.final_state == 0):
@@ -207,7 +208,7 @@ class Avoider(DTROS): #comment here
             car_control_msg.v = 0.2
             car_control_msg.omega = self.compute_omega(self.target_states[self.iter_],self.x,self.y,self.yaw,dt)
                 
-            print( " car commands  ",car_control_msg.omega)
+            #print( " car commands  ",car_control_msg.omega)
             print("car control given",car_control_msg)
 
             if self.check_point( np.array([self.x,self.y]),self.target_states[self.iter_] ):
@@ -275,8 +276,8 @@ class Avoider(DTROS): #comment here
     def compute_omega(self,targetxy,x,y,current,dt):
         factor = 2.0 # PARAM 
 
-        print("compute omega targetxy", targetxy)
-        print("compute omega current",x,y)
+        #print("compute omega targetxy", targetxy)
+        #print("compute omega current",x,y)
 
         target_yaw = np.arctan2( (targetxy[1] - y),(targetxy[0]- x) )
 
@@ -303,7 +304,7 @@ class Avoider(DTROS): #comment here
         else:
             dist = np.sqrt(np.sum((current_point - target_point)**2 ))
             dist_x = current_point - target_point
-            print("check if we reached ")
+            print("checking if we reached ")
             print("dist ",dist)
             print(" current and target point",current_point,target_point)
             print("-"*10)
