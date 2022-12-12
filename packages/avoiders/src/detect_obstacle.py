@@ -133,8 +133,8 @@ class Avoider(DTROS): #comment here
         obstacle_info = np.array([0,40]) #TODO remove this 
     
         # Assume obstacle_info[1] > 20
-        safe_distance = 15
-        end_point = (0,  obstacle_info[1] + 30) # want to end up 20 centimeters past the obstacle, back at the same x coordinate
+        safe_distance = 20 
+        end_point = (0,  obstacle_info[1] + 2*safe_distance) # want to end up 20 centimeters past the obstacle, back at the same x coordinate
     
         # middle point
         if obstacle_info[0] < 0:
