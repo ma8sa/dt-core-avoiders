@@ -40,7 +40,6 @@ class Avoider(DTROS): #comment here
 
         super(Avoider, self).__init__(node_name="controller_node", node_type=NodeType.PERCEPTION)
 
-        #rospy.init_node("avoider")
 
         self.state = 0 #-1 failed, 0 in work , 1 finished
         rate = rospy.Rate(0.5)
@@ -70,20 +69,11 @@ class Avoider(DTROS): #comment here
         self.wheelbase = 0.108
         self.iter_ = 0
 
-        #NOTE
         self.target_states = np.array([  [0.3,0.2],[0.5,0.2],[0.7,0]  ])
         self.len_states = self.target_states.shape[0]
-        print(self.len_states)
         self.final_state = 0 # 0 still working , 1 done , -1 failed
         self.path_valid = False
         self.planning = False
-        #ROS
-        #TODO : 1) get the subscirbers working 
-        #TODO : 1.1) Test this using fake data
-        
-        #Theory
-        #TODO : 2) given an obstacle plan an trajectory
-        #TODO : 3) execute the trajectory
 
         
         # subscirber
@@ -150,8 +140,6 @@ class Avoider(DTROS): #comment here
             print(self.target_states)
 
 
-        #while(self.final_state == 0):
-            #print("wainting for encoder messages ")
         self.path_valid = True
 
     def cb_ts_encoders(self, left_encoder, right_encoder):
@@ -233,7 +221,7 @@ class Avoider(DTROS): #comment here
         self.encoders_timestamp_last_local = timestamp_now
 
         if self.wierd and self.final_state == 0:
-            print("iterator ",self.iter_)
+            #print("iterator ",self.iter_)
             start_time = rospy.Time.now()
             
             self.state = 0
@@ -261,9 +249,9 @@ class Avoider(DTROS): #comment here
                         #self.reset()
                         return 
 
-            print("target_state_ ",self.target_states[self.iter_])
+            #print("target_state_ ",self.target_states[self.iter_])
             self.pub_motor.publish(car_control_msg)
-            print("cur state ",self.x,self.y,self.yaw)
+            #print("cur state ",self.x,self.y,self.yaw)
             self.state = 1
 
     @staticmethod
@@ -274,40 +262,6 @@ class Avoider(DTROS): #comment here
             return theta + 2 * math.pi
         else:
             return theta
-#
-#    def callback(self,obstacles,lane):
-#
-#            ''' do planning stuff here '''
-#            path = self.path_plan(obstacles,lane)
-#
-#            rospy.loginfo( " in the node printing yeaaaah")
-#
-#
-#            ''' in a loop, while follow that by publishing motor state '''
-#            
-#            start_time = rospy.Time.now()
-#            
-#            message_count = [0,0,1,0,-1,0]
-#            m_len = len(message_count)
-#
-#            self.iter_ = 0
-#
-#            while(self.state == 0):
-#
-#                car_control_msg = Twist2DStamped()
-#                car_control_msg.header.stamp = rospy.Time.now()
-#                car_control_msg.header.seq = 0
-#
-#        # Add commands to car message
-#                car_control_msg.v = 0.3 
-#            #self.pub_motor.pub()
-#                self.pub_motor.publish(car_control_msg)
-#                cur_time = rospy.Time.now()
-#                if cur_time.secs - start_time.secs > 1:
-#                    start_time = rospy.Time.now()
-#                    iter_ += 1
-#
-#            
 
     def path_plan(self,obstacle,lane):
             return 0
@@ -320,8 +274,8 @@ class Avoider(DTROS): #comment here
 
         target_yaw = np.arctan2( (targetxy[1] - y),(targetxy[0]- x) )
 
-        print("target yaw ", np.rad2deg(target_yaw))
-        print("currnt_yaw ", np.rad2deg(current))
+        #print("target yaw ", np.rad2deg(target_yaw))
+        #print("currnt_yaw ", np.rad2deg(current))
 
         omega = factor* ((target_yaw - current))
 
@@ -343,10 +297,10 @@ class Avoider(DTROS): #comment here
         else:
             dist = np.sqrt(np.sum((current_point - target_point)**2 ))
             dist_x = current_point - target_point
-            print("checking if we reached ")
-            print("dist ",dist)
-            print(" current and target point",current_point,target_point)
-            print("-"*10)
+            #print("checking if we reached ")
+            #print("dist ",dist)
+            #print(" current and target point",current_point,target_point)
+            #print("-"*10)
 
             if (dist_x[0]) > threshold_x or (dist) < threshold:
             #if  (dist) < threshold:
@@ -361,6 +315,3 @@ class Avoider(DTROS): #comment here
 if __name__ == '__main__':
     A = Avoider()
     rospy.spin()
-    #obs_msg = None
-    #lane_msg = None
-    #dtu.wrap_script_entry_point(A.callback(obs_msg,lane_msg))

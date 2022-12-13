@@ -73,18 +73,6 @@ class Avoider(DTROS): #comment here
         )
 
 
-        #self.sub_lane_reading = rospy.Subscriber(
-        #    "~lane_pose", LanePose, self.get_pose, "lane_filter", queue_size=1
-    
-        #subscribe to obstacle , make sure you fix units and axis NOTE
-        # if we need to avoid , then publish avoidance path
-
-        # TODO 
-        # move this
-        #if self.in_lane: # check if we have lane message or not
-        #    print(' we have valid lane message ')
-        #    if self.get_to_avoid(self.obstacle,[self.pose_d,self.pose_phi]):
-        #        self.plan(self.obstacle,[self.pose_d,self.pose_phi])
 
     def get_pose(self, input_pose_msg,source):
 
@@ -92,17 +80,16 @@ class Avoider(DTROS): #comment here
         self.pose_phi = input_pose_msg.phi
         self.in_lane =  input_pose_msg.in_lane
 
-        print("got lane ")
-        print("Lane stuff ")
-        print(self.pose_d)
-        print(self.pose_phi)
+        #print("got lane ")
+        #print("Lane stuff ")
+        #print(self.pose_d)
+        #print(self.pose_phi)
 
         if self.get_to_avoid(self.obstacle,[self.pose_d * (-100),self.pose_phi]):
-            print(" making path ")
+            #print(" making path ")
             self.plan(self.obstacle,[self.pose_d * (-100),self.pose_phi])
 
 
-## ALL OBSTACLE_INFO ASSUMES THETA=0
 
 
     def rotate(self,origin, point, angle):
@@ -186,12 +173,12 @@ class Avoider(DTROS): #comment here
         lane_info[0] = lane_info[0] + (self.LANE_WIDTH/2)
         obstacle_info = self.rotate((0,0), np.array(list(obstacle_info)), lane_info[1])
         #obstacle_info = np.array([30,40]) #TODO remove this 
-        print("updated obstacle ",obstacle_info)    
+        #print("updated obstacle ",obstacle_info)    
         obstacle_2_lane_x = obstacle_info[0] + lane_info[0]
         to_avoid = np.logical_not(np.logical_or(obstacle_2_lane_x < -self.OBSTACLE_RADIUS, 
                              obstacle_2_lane_x > (self.LANE_WIDTH + self.OBSTACLE_RADIUS)))
         
-        print(to_avoid)
+        #print(to_avoid)
         return to_avoid
     
 
@@ -200,6 +187,3 @@ class Avoider(DTROS): #comment here
 if __name__ == '__main__':
     A = Avoider()
     rospy.spin()
-    #obs_msg = None
-    #lane_msg = None
-    #dtu.wrap_script_entry_point(A.callback(obs_msg,lane_msg))
