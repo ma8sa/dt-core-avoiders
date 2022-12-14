@@ -56,7 +56,7 @@ class Avoider(DTROS): #comment here
         self.pose_phi = 0
         self.in_lane = False
 
-        self.obstacle = [-10,40] # obstacle in robo frame , units:cm
+        self.obstacle = [0,40] # obstacle in robo frame , units:cm
 
         
         #self.sub_lane_reading = rospy.Subscriber(
@@ -120,7 +120,7 @@ class Avoider(DTROS): #comment here
         
         obstacle_info = self.rotate((0,0), np.array(list(obstacle_info)), lane_info[1])
 
-        obstacle_info = np.array([-10,45]) #TODO remove this 
+        obstacle_info = np.array([0,45]) #TODO remove this 
     
         # Assume obstacle_info[1] > 20
         safe_distance = 15
