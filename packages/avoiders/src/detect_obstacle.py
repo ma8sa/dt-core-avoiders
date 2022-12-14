@@ -56,7 +56,7 @@ class Avoider(DTROS): #comment here
         self.pose_phi = 0
         self.in_lane = False
 
-        self.obstacle = [0,25] # obstacle in robo frame , units:cm
+        self.obstacle = [0,40] # obstacle in robo frame , units:cm
 
         
         #self.sub_lane_reading = rospy.Subscriber(
@@ -124,7 +124,7 @@ class Avoider(DTROS): #comment here
     
         # Assume obstacle_info[1] > 20
         safe_distance = 15
-        end_point = (0,  obstacle_info[1] + 2.2*safe_distance) # want to end up 20 centimeters past the obstacle, back at the same x coordinate
+        end_point = (0,  obstacle_info[1] + 2.3*safe_distance) # want to end up 20 centimeters past the obstacle, back at the same x coordinate
     
         # middle point
         if obstacle_info[0] < 0:
